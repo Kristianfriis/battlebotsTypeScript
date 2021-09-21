@@ -1,5 +1,6 @@
 import Statusbar from "./statusbar.js";
 import Actions from "./actions.js"
+import battleBar from "./battleBar.js";
 const Type = {
 	Attack: 0,
 	Defense: 1,
@@ -11,6 +12,9 @@ const Type = {
 export default {
     template: `
     <div id="main-view">
+    <battleBar v-if="!battleIsOn" @battle="getBattleData"></battleBar>
+
+    <div v-if="battleIsOn">
         <div id="opponent">
             opponent
             <Statusbar v-bind:robo="enemy"></Statusbar>
@@ -27,10 +31,12 @@ export default {
         <button @click="displayMessages(enemy, 56)">messages</button>
         <div id="messages">{{message}}</div>
     </div>
+    </div>
   `,
   components: {
     Statusbar,
-    Actions
+    Actions,
+    battleBar
   },
     data() {
       return {
@@ -48,7 +54,9 @@ export default {
         },
         actions: [{Name: "Power Hammer"},{Name: "Photon Shield"},{Name: "Hand Cannon"}],
         message: "",
-        showActions: true
+        showActions: false,
+        battleIsOn: false,
+        facts: []
       }
     },
     methods: {
@@ -65,10 +73,11 @@ export default {
             new Message("Power Hammer hits for 56 dmg", Type.Attack, -56),
             new Message(this.enemy.name + " suffers from concussion", Type.Status, 0)
           ]
-            var messages = ["You use Power Hammer", "Power Hammer hits for 56 dmg", this.enemy.name + " suffers from concussion"]
-            this.message = test[0].Message
-            messages.shift()
-            for (const item of test) {
+
+          var messages = this.facts;
+
+            this.message = messages[0].Message
+            for (const item of messages) {
                 await sleep(1500)
                 this.message = item.Message  
                 if(item.Type == Type.Attack){
@@ -78,6 +87,20 @@ export default {
             await sleep(1500)
             this.message = ""
           this.showActions = true
+        },
+        getBattleData(){
+          this.battleIsOn = true
+          const events = new EventSource('http://localhost:8080/events/'+1000);
+          events.onmessage = (event) => {
+              const parsedData = JSON.parse(event.data);
+
+              this.facts = parsedData
+
+              var obj = Object.assign(new Message(), parsedData)
+              this.facts.push(obj)
+
+              this.displayMessages()
+          }
         }
     }
   };
