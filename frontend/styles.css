@@ -1,0 +1,35 @@
+#main-view {
+    width: 800px;
+    height: 400px;
+    margin: auto;
+    border: 2px solid rgb(157, 156, 163);
+    border-radius: 5px;
+    padding: 10px;
+}
+#opponent {
+    border: 2px solid red;
+    height: 30%;
+    margin-bottom: 5px;
+}
+#player {
+    border: 2px solid green;
+    height: 45%;
+    margin-bottom: 5px;
+} 
+#messages {
+    border: 2px solid rgb(157, 156, 163);
+    border-radius: 5px;
+    height: 15%;
+}
+#action-status-bar{
+    margin: 100px 5px 0px 5px;
+    display: flex;
+    justify-content: space-between;
+}
+#actions {
+    background-color: hsl(200deg 25% 95%);
+    border-radius: 5px;
+    border: 2px solid rgb(213 219 222);
+    width: 50%;
+    padding: 10px;
+}
