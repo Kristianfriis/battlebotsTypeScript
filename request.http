@@ -1,1 +1,9 @@
-GET url HTTP/1.1
+POST http://localhost:8080/attack HTTP/1.1
+content-type: application/json
+
+{
+        "robotId" : 1234,
+        "effect" : 56,
+        "name" : "Hammer"
+}
+
