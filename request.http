@@ -2,6 +2,7 @@ POST http://localhost:8080/attack HTTP/1.1
 content-type: application/json
 
 {
+        "battleId" : 1000,
         "robotId" : 1234,
         "effect" : 56,
         "name" : "Hammer"

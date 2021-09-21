@@ -1,4 +1,5 @@
 export class Attack {
+    battleId : number;
     robotId : number;
     effect : number;
     name : string;

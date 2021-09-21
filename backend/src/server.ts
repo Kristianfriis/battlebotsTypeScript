@@ -12,16 +12,28 @@ app.use(express.urlencoded({extended: true}));
 
 let clients : Client[] = []
 
+clients.push(new Client(1000, null))
+
 app.get("/", (req, res) => {
     res.json("hello there")
 })
 
 app.post("/attack", (req, res) => {
-    // console.log(req.body)
-    // let attckBody = JSON.parse(req.body)
-
+    console.log("attack registered" + req.body)
+    console.log(req.body)
     let attack : Attack = Object.assign(new Attack(), req.body)
-    attack.Check()
+    
+    clients.forEach(c => {
+        if(c.BattleId == attack.battleId){
+            console.log("adding attack to battle: " + c.BattleId)
+            c.AddAttack(attack)
+
+            if(c.Attacks.length === 2){
+                console.log(c.Attacks)
+            }
+        }
+    })
+
 })
 
 app.listen( port, () => {
