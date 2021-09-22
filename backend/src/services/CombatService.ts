@@ -1,5 +1,4 @@
-import { RobotDetails } from "../models/RobotDetails";
-import { Attack } from "../models/Attack";
+import { BattleRobot } from "../models/BattleRobot";
 
 export class CombatService {
     Robot1 : BattleRobot
@@ -12,12 +11,3 @@ export class CombatService {
 
 }
 
-export class BattleRobot {
-    RobotDetails : RobotDetails;
-    Attack : Attack
-
-    constructor(robo : RobotDetails, attack : Attack){
-        this.RobotDetails = robo;
-        this.Attack = attack;
-    }
-}
