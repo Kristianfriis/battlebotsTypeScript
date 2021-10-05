@@ -14,17 +14,15 @@ app.use(express.urlencoded({extended: true}));
 
 let clients : Clients = new Clients()
 
-let attackHandler : AttackHandler = new AttackHandler(clients);
-let eventHandler : EventHandler = new EventHandler(clients);
-let testHandler : TestHandler = new TestHandler(clients);
+let attackHandler : AttackHandler = new AttackHandler();
+let eventHandler : EventHandler = new EventHandler();
+let testHandler : TestHandler = new TestHandler();
 
-app.get("/", (req, res) => {
-    res.json("hello there")
-})
-
-app.get('/events/:battleid', eventHandler.events)
-app.post("/attack", attackHandler.Attack)
-app.get('/test', testHandler.events.bind(testHandler.events))
+app.get('/events/:battleid', (req, res) => {eventHandler.events(req, res, clients)})
+app.get('/joinbattle/:battleid', (req, res) => {eventHandler.joinBattle(req, res, clients)})
+app.post("/attack", (req, res) => {attackHandler.Attack(req, res, clients)})
+app.post("/attackinbattle", (req, res) => {attackHandler.AttackInBattleClient(req, res, clients)})
+app.get('/test', (req, res) => {testHandler.events(req, res, clients)})
 
 app.listen( port, () => {
     console.log( `server started at http://localhost:${ port }` );

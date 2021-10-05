@@ -3,17 +3,11 @@ import {Clients} from "../models/Clients"
 
 
 export class TestHandler {
-    C : Clients
-
-    constructor(c : Clients){
-        this.C = c;
-        console.log(this.C)
-    }
-    events(request : Request, response : Response) {    
+    events(request : Request, response : Response, C : Clients) {    
     
         const clientId = parseInt(request.params.battleid);
-        console.log(this.C)
-        this.C.addClient(response)
+        console.log(C)
+        C.addClient(response)
 
         response.send("added client")
     }
