@@ -7,7 +7,6 @@ export class TestHandler {
     
         const clientId = parseInt(request.params.battleid);
         console.log(C)
-        C.addClient(response)
 
         response.send("added client")
     }

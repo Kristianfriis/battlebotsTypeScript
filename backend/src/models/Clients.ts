@@ -12,12 +12,7 @@ export class Clients {
         this.clients = []
     }
 
-    addClient(response : Response){
-        this.clients.push(new Client(1000, response))
-    }
-
     addBattleClient(battleId : number, res: Response){
-        console.log(this.battleClients)
         let bClient = undefined;
 
         if(this.battleClients.length !== 0){
@@ -25,23 +20,16 @@ export class Clients {
         }
 
         if(bClient == undefined){
+            console.log("no battle declared with battleId: " + battleId)
             var newBClient = new BattleClient(battleId)
             newBClient.addClient(battleId, res)
+            console.log("created new battle for battleId: " + battleId + " and added client")
             this.battleClients.push(newBClient)
+            console.log("added battleClient to battle: " + battleId)
+            console.log(newBClient)
         } else {
             bClient.addClient(battleId, res)
+            console.log("added client to battleId: " + battleId)
         }
-    }
-
-    sendEventsToAll(messages : Message[], battleId : number) {
-        this.clients.forEach(client => {
-            if(client.BattleId === battleId){
-                client.Response.write(createJsonToSend(messages))
-            }
-        })
-    }
-
-    sendEventsToBattle(messages : Message[], battleId : number){
-        
     }
 }

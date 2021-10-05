@@ -18,10 +18,8 @@ let attackHandler : AttackHandler = new AttackHandler();
 let eventHandler : EventHandler = new EventHandler();
 let testHandler : TestHandler = new TestHandler();
 
-app.get('/events/:battleid', (req, res) => {eventHandler.events(req, res, clients)})
 app.get('/joinbattle/:battleid', (req, res) => {eventHandler.joinBattle(req, res, clients)})
-app.post("/attack", (req, res) => {attackHandler.Attack(req, res, clients)})
-app.post("/attackinbattle", (req, res) => {attackHandler.AttackInBattleClient(req, res, clients)})
+app.post("/attack", (req, res) => {attackHandler.AttackInBattleClient(req, res, clients)})
 app.get('/test', (req, res) => {testHandler.events(req, res, clients)})
 
 app.listen( port, () => {
