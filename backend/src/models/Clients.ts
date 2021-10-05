@@ -1,7 +1,5 @@
 import { Response } from "express";
-import {createJsonToSend} from "../utils/helpers"
 import { Client } from "../models/Client"
-import { Message, MessageType } from "../models/Message";
 import { BattleClient } from "./BattleClient";
 
 export class Clients {
@@ -21,9 +19,11 @@ export class Clients {
 
         if(bClient == undefined){
             console.log("no battle declared with battleId: " + battleId)
+            
             var newBClient = new BattleClient(battleId)
             newBClient.addClient(battleId, res)
             console.log("created new battle for battleId: " + battleId + " and added client")
+
             this.battleClients.push(newBClient)
             console.log("added battleClient to battle: " + battleId)
             console.log(newBClient)
